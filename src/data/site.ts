@@ -151,38 +151,185 @@ export const projects: Project[] = [
 
 const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons'
 
-export const skillGroups: { title: string; items: { name: string; icon: string }[] }[] = [
+/** 3 = daily / core production, 2 = regular, 1 = occasional */
+export type SkillProficiency = 1 | 2 | 3
+
+export type SkillItem = {
+  name: string
+  icon: string
+  proficiency: SkillProficiency
+  /** Shown as native tooltip; keep concise */
+  productionHint: string
+}
+
+export type SkillGroup = {
+  title: string
+  /** Single ghost wordmark, aligned to chip column in the UI */
+  ghostWord: string
+  items: SkillItem[]
+}
+
+export const skillGroups: SkillGroup[] = [
   {
     title: 'Languages & AI/ML',
+    ghostWord: 'Languages',
     items: [
-      { name: 'Python', icon: `${DEVICON}/python/python-original.svg` },
-      { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg` },
-      { name: 'TensorFlow', icon: `${DEVICON}/tensorflow/tensorflow-original.svg` },
-      { name: 'Pandas', icon: `${DEVICON}/pandas/pandas-original.svg` },
-      { name: 'Hugging Face', icon: 'https://cdn.simpleicons.org/huggingface/FFD21E' },
-      { name: 'LangChain', icon: 'https://cdn.simpleicons.org/langchain/C2D4FF' },
+      {
+        name: 'Python',
+        icon: `${DEVICON}/python/python-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: services, jobs, notebooks, and ML glue at Aptos.',
+      },
+      {
+        name: 'TypeScript',
+        icon: `${DEVICON}/typescript/typescript-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: frontends and typed Node tooling alongside Python.',
+      },
+      {
+        name: 'TensorFlow',
+        icon: `${DEVICON}/tensorflow/tensorflow-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: training and serving paths on past ML products.',
+      },
+      {
+        name: 'Pandas',
+        icon: `${DEVICON}/pandas/pandas-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: ETL, exploration, and metrics prep.',
+      },
+      {
+        name: 'Hugging Face',
+        icon: 'https://cdn.simpleicons.org/huggingface/FFD21E',
+        proficiency: 2,
+        productionHint: 'Regular: models, datasets, and experiment packaging.',
+      },
+      {
+        name: 'LangChain',
+        icon: 'https://cdn.simpleicons.org/langchain/C2D4FF',
+        proficiency: 2,
+        productionHint: 'Regular: LLM orchestration and RAG-style flows.',
+      },
     ],
   },
   {
     title: 'Frameworks & infrastructure',
+    ghostWord: 'Frameworks',
     items: [
-      { name: 'FastAPI', icon: `${DEVICON}/fastapi/fastapi-original.svg` },
-      { name: 'React', icon: `${DEVICON}/react/react-original.svg` },
-      { name: 'AWS', icon: `${DEVICON}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
-      { name: 'Docker', icon: `${DEVICON}/docker/docker-original.svg` },
-      { name: 'Kubernetes', icon: `${DEVICON}/kubernetes/kubernetes-plain.svg` },
-      { name: 'PostgreSQL', icon: `${DEVICON}/postgresql/postgresql-original.svg` },
+      {
+        name: 'FastAPI',
+        icon: `${DEVICON}/fastapi/fastapi-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: high-traffic APIs and internal services.',
+      },
+      {
+        name: 'React',
+        icon: `${DEVICON}/react/react-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: product UIs and internal dashboards.',
+      },
+      {
+        name: 'AWS',
+        icon: `${DEVICON}/amazonwebservices/amazonwebservices-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: ECS, Lambda, RDS, and cost-aware microservices.',
+      },
+      {
+        name: 'Docker',
+        icon: `${DEVICON}/docker/docker-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: local parity and deployable artifacts.',
+      },
+      {
+        name: 'Kubernetes',
+        icon: `${DEVICON}/kubernetes/kubernetes-plain.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: workloads, rollouts, and cluster hygiene.',
+      },
+      {
+        name: 'PostgreSQL',
+        icon: `${DEVICON}/postgresql/postgresql-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: relational data, migrations, and query tuning.',
+      },
     ],
   },
   {
     title: 'DevOps & observability',
+    ghostWord: 'DevOps',
     items: [
-      { name: 'Terraform', icon: `${DEVICON}/terraform/terraform-original.svg` },
-      { name: 'Grafana', icon: `${DEVICON}/grafana/grafana-original.svg` },
-      { name: 'Prometheus', icon: `${DEVICON}/prometheus/prometheus-original.svg` },
-      { name: 'Redis', icon: `${DEVICON}/redis/redis-original.svg` },
-      { name: 'Git', icon: `${DEVICON}/git/git-original.svg` },
-      { name: 'Tableau', icon: 'https://cdn.simpleicons.org/tableau/E97627' },
+      {
+        name: 'Terraform',
+        icon: `${DEVICON}/terraform/terraform-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: IaC modules and environment promotion.',
+      },
+      {
+        name: 'Grafana',
+        icon: `${DEVICON}/grafana/grafana-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: dashboards during incidents and capacity work.',
+      },
+      {
+        name: 'Prometheus',
+        icon: `${DEVICON}/prometheus/prometheus-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: metrics and SLO conversations with teams.',
+      },
+      {
+        name: 'Redis',
+        icon: `${DEVICON}/redis/redis-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: caching, queues, and hot-path performance.',
+      },
+      {
+        name: 'Git',
+        icon: `${DEVICON}/git/git-original.svg`,
+        proficiency: 3,
+        productionHint: 'Daily: branching, reviews, and release hygiene.',
+      },
+      {
+        name: 'Tableau',
+        icon: 'https://cdn.simpleicons.org/tableau/E97627',
+        proficiency: 1,
+        productionHint: 'Occasional: stakeholder views on operational data.',
+      },
+    ],
+  },
+  {
+    title: 'Practices & delivery',
+    ghostWord: 'Practices',
+    items: [
+      {
+        name: 'pytest',
+        icon: `${DEVICON}/pytest/pytest-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: API and service tests in CI.',
+      },
+      {
+        name: 'GitHub Actions',
+        icon: 'https://cdn.simpleicons.org/githubactions/2088FF',
+        proficiency: 2,
+        productionHint: 'Regular: build, test, and deploy pipelines.',
+      },
+      {
+        name: 'OpenAPI',
+        icon: 'https://cdn.simpleicons.org/swagger/85EA2D',
+        proficiency: 2,
+        productionHint: 'Regular: contract-first APIs, specs, and codegen where it helps.',
+      },
+      {
+        name: 'ESLint',
+        icon: `${DEVICON}/eslint/eslint-original.svg`,
+        proficiency: 2,
+        productionHint: 'Regular: static checks on TS/React codebases.',
+      },
+      {
+        name: 'Playwright',
+        icon: 'https://cdn.simpleicons.org/playwright/45ba4b',
+        proficiency: 1,
+        productionHint: 'Occasional: end-to-end coverage on critical flows.',
+      },
     ],
   },
 ]
