@@ -121,6 +121,19 @@ html.light .ambient-grid {
   opacity: 0.55;
 }
 
+/* Intro AK stroked monogram - avoid clipping ascenders / K upper arm (flex + SVG defaults). */
+.intro-sequence {
+  overflow: visible;
+}
+.intro-sequence .intro-monogram-stage,
+.intro-sequence .intro-monogram-svg-wrap {
+  overflow: visible;
+  clip-path: none;
+}
+.intro-sequence .intro-monogram-svg {
+  overflow: visible;
+}
+
 .text-gradient {
   @apply bg-clip-text text-transparent;
   background-image: linear-gradient(

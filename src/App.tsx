@@ -1,6 +1,5 @@
-import { useLayoutEffect, useRef } from 'react'
-import gsap from 'gsap'
 import { SmoothScrollProvider } from '@/providers/SmoothScrollProvider'
+import { IntroSequence } from '@/components/IntroSequence'
 import { ScrollProgress } from '@/components/ScrollProgress'
 import { CustomCursor } from '@/components/CustomCursor'
 import { SiteNav } from '@/components/SiteNav'
@@ -11,49 +10,10 @@ import { SkillsSection } from '@/components/SkillsSection'
 import { ContactSection } from '@/components/ContactSection'
 import { SiteFooter } from '@/components/SiteFooter'
 
-function IntroCurtain() {
-  const veil = useRef<HTMLDivElement>(null)
-
-  useLayoutEffect(() => {
-    const el = veil.current
-    if (!el) return
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) {
-      el.style.display = 'none'
-      return
-    }
-    const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } })
-    tl.to(el, { scaleY: 0, transformOrigin: 'top', duration: 0.95, ease: 'power4.inOut' }, 0.08)
-      .to(
-        el,
-        {
-          opacity: 0,
-          duration: 0.25,
-          onComplete: () => {
-            el.style.pointerEvents = 'none'
-            el.style.display = 'none'
-          },
-        },
-        '-=0.35',
-      )
-    return () => {
-      tl.kill()
-    }
-  }, [])
-
-  return (
-    <div
-      ref={veil}
-      className="intro-veil pointer-events-auto fixed inset-0 z-[200] bg-foreground"
-      aria-hidden
-    />
-  )
-}
-
 export default function App() {
   return (
     <SmoothScrollProvider>
-      <IntroCurtain />
+      <IntroSequence />
       <CustomCursor />
       <div className="relative min-h-screen">
         <ScrollProgress />
