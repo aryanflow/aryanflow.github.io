@@ -15,42 +15,42 @@ export function AboutSection() {
     const ctx = gsap.context(() => {
       if (reduce) return
       gsap.from(copy.current, {
-        y: 36,
+        y: 28,
         opacity: 0,
-        duration: 0.85,
+        duration: 0.75,
         ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 82%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
       })
       gsap.from(rail.current?.querySelectorAll('.about-node') ?? [], {
-        x: -28,
+        x: -20,
         opacity: 0,
-        duration: 0.65,
-        stagger: 0.1,
+        duration: 0.55,
+        stagger: 0.08,
         ease: 'power3.out',
-        scrollTrigger: { trigger: rail.current, start: 'top 88%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: rail.current, start: 'top 92%', once: true },
       })
     }, el)
     return () => ctx.revert()
   }, [])
 
   return (
-    <section id="about" ref={section} className="scroll-mt-28 px-5 py-24 md:px-10 md:py-32">
+    <section id="about" ref={section} className="scroll-mt-28 px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-5xl">
-        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">About</p>
-        <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.02em]">
-          Software that stays legible at 2 a.m.
+        <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/70">About</p>
+        <h2 className="mt-3 max-w-3xl font-display text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.02em]">
+          {site.about.headline}
         </h2>
-        <p ref={copy} className="mt-8 max-w-2xl text-[15px] leading-relaxed text-muted-foreground md:text-[17px] md:leading-relaxed">
+        <p ref={copy} className="mt-6 max-w-2xl text-[15px] leading-relaxed text-muted-foreground md:mt-7 md:text-[17px] md:leading-relaxed">
           {site.about.paragraphs[0]}
         </p>
 
-        <div ref={rail} className="mt-16 border-t border-border/60 pt-12">
-          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">Where I ship</p>
-          <div className="mt-8 space-y-0">
+        <div ref={rail} className="mt-10 border-t border-border/60 pt-8 md:mt-12 md:pt-10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/70">Where I ship</p>
+          <div className="mt-6 space-y-0 md:mt-7">
             {experience.map((job) => (
               <div
                 key={job.company}
-                className="about-node group relative grid gap-2 border-b border-border/40 py-6 md:grid-cols-[160px_1fr] md:gap-10 md:py-8"
+                className="about-node group relative grid gap-2 border-b border-border/40 py-5 md:grid-cols-[160px_1fr] md:gap-10 md:py-6"
               >
                 <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground md:pt-1">
                   {job.period}
@@ -62,22 +62,28 @@ export function AboutSection() {
                     {job.company}
                   </p>
                   <p className="mt-1 text-sm text-muted-foreground">{job.place}</p>
-                  <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted-foreground/95">{job.points[0]}</p>
+                  <p className="mt-2 max-w-prose text-sm leading-relaxed text-muted-foreground/95 md:mt-3">{job.points[0]}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-14 flex flex-wrap gap-2">
-          {highlights.slice(0, 5).map((h) => (
-            <span
-              key={h}
-              className="rounded-full border border-border/70 bg-card/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur-sm"
-            >
-              {h}
-            </span>
-          ))}
+        <div className="mt-8 md:mt-10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/70">Achievements &amp; extras</p>
+          <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+            Highlights outside the day job: competitions, credentials, and habits that keep the craft sharp.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2 md:mt-6">
+            {highlights.slice(0, 6).map((h) => (
+              <span
+                key={h}
+                className="rounded-full border border-border/60 bg-card/50 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur-sm transition hover:border-primary/35 hover:text-foreground light:border-stone-200/80 light:bg-white/70"
+              >
+                {h}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

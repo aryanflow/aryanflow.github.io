@@ -3,13 +3,14 @@ export const site = {
   title: 'AI-first software engineer',
   tagline: 'I build systems that stay calm at scale.',
   role: 'Software Developer L1 @ Aptos Retail',
-  email: 'akmail2017@gmail.com',
+  email: 'work.aryankashyap@gmail.com',
   github: 'https://github.com/aryankashyap7',
   linkedin: 'https://www.linkedin.com/in/aryankashyap/',
   medium: 'https://medium.com/@aryankashyap7',
   resume: '/assets/Aryan Kashyap Resume.pdf',
   about: {
     lede: 'Software Developer & ML Engineer',
+    headline: 'Calm systems, sharp edges, zero theatre.',
     paragraphs: [
       `I am a Software Developer L1 at Aptos Retail, rearchitecting high traffic order and product APIs, modernising legacy services, and improving cost and performance across a large AWS microservices estate. Before that, I was a Full Stack Developer at EasyInsights on data heavy SaaS, and a QA Automation Engineer at Schlumberger building test automation you can lean on.`,
       `My work lives where ML, backend engineering, and cloud meet: from ML driven products to API design, observability, and regression frameworks that keep change safe. I studied Computer Science with a specialisation in AIML at VIT Bhopal (CGPA 8.56), with a focus on applied AI.`,
@@ -148,38 +149,40 @@ export const projects: Project[] = [
   },
 ]
 
+const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@2.16.0/icons'
+
 export const skillGroups: { title: string; items: { name: string; icon: string }[] }[] = [
   {
     title: 'Languages & AI/ML',
     items: [
-      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-      { name: 'TensorFlow', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
-      { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
-      { name: 'Hugging Face', icon: 'https://huggingface.co/front/assets/huggingface_logo-noborder.svg' },
-      { name: 'LangChain', icon: 'https://cdn.simpleicons.org/langchain/1C3C3C' },
+      { name: 'Python', icon: `${DEVICON}/python/python-original.svg` },
+      { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg` },
+      { name: 'TensorFlow', icon: `${DEVICON}/tensorflow/tensorflow-original.svg` },
+      { name: 'Pandas', icon: `${DEVICON}/pandas/pandas-original.svg` },
+      { name: 'Hugging Face', icon: 'https://cdn.simpleicons.org/huggingface/FFD21E' },
+      { name: 'LangChain', icon: 'https://cdn.simpleicons.org/langchain/C2D4FF' },
     ],
   },
   {
     title: 'Frameworks & infrastructure',
     items: [
-      { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
-      { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-      { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg' },
-      { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-      { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
-      { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+      { name: 'FastAPI', icon: `${DEVICON}/fastapi/fastapi-original.svg` },
+      { name: 'React', icon: `${DEVICON}/react/react-original.svg` },
+      { name: 'AWS', icon: `${DEVICON}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
+      { name: 'Docker', icon: `${DEVICON}/docker/docker-original.svg` },
+      { name: 'Kubernetes', icon: `${DEVICON}/kubernetes/kubernetes-plain.svg` },
+      { name: 'PostgreSQL', icon: `${DEVICON}/postgresql/postgresql-original.svg` },
     ],
   },
   {
     title: 'DevOps & observability',
     items: [
-      { name: 'Terraform', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
-      { name: 'Grafana', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg' },
-      { name: 'Prometheus', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg' },
-      { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
-      { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-      { name: 'Tableau', icon: 'https://cdn.worldvectorlogo.com/logos/tableau-software.svg' },
+      { name: 'Terraform', icon: `${DEVICON}/terraform/terraform-original.svg` },
+      { name: 'Grafana', icon: `${DEVICON}/grafana/grafana-original.svg` },
+      { name: 'Prometheus', icon: `${DEVICON}/prometheus/prometheus-original.svg` },
+      { name: 'Redis', icon: `${DEVICON}/redis/redis-original.svg` },
+      { name: 'Git', icon: `${DEVICON}/git/git-original.svg` },
+      { name: 'Tableau', icon: 'https://cdn.simpleicons.org/tableau/E97627' },
     ],
   },
 ]

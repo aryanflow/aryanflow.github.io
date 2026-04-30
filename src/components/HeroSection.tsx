@@ -61,7 +61,7 @@ export function HeroSection() {
     <section
       id="top"
       ref={root}
-      className="relative min-h-[100svh] overflow-hidden px-5 pb-24 pt-28 md:px-10 md:pb-32 md:pt-36"
+      className="relative min-h-[100svh] overflow-hidden px-5 pb-24 pt-20 md:px-10 md:pb-28 md:pt-24"
     >
       <div className="hero-parallax pointer-events-none absolute inset-0 z-0">
         <Suspense fallback={null}>
@@ -73,15 +73,15 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col justify-end md:min-h-[calc(100svh-8rem)]">
+      <div className="relative z-10 mx-auto flex max-w-5xl flex-col pt-2 md:min-h-[calc(100svh-5.5rem)] md:justify-center md:pt-0">
         <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground md:text-[11px]">Portfolio · 2026</p>
 
         <h1
           ref={headlineRef}
-          className="mt-6 font-display text-[clamp(2.4rem,7.5vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground"
+          className="mt-5 flex flex-wrap items-baseline gap-x-[0.22em] gap-y-0.5 font-display text-[clamp(2.4rem,7.5vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.03em] text-foreground md:mt-6"
         >
           {lines.map((word, i) => (
-            <span key={`${word}-${i}`} className="hero-line inline-block overflow-hidden pr-[0.2em]">
+            <span key={`${word}-${i}`} className="hero-line inline-flex overflow-hidden">
               <span className="inline-block">{word}</span>
             </span>
           ))}
