@@ -34,7 +34,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Syne', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
         sans: ['Outfit', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
       },

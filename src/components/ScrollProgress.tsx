@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { motion, useScroll, useSpring } from 'framer-motion'
+import { useLenis } from '@/providers/SmoothScrollProvider'
 
 export function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 })
+  const { scrollProgress } = useLenis()
   const [reduce, setReduce] = useState(false)
 
   useEffect(() => {
@@ -17,9 +16,9 @@ export function ScrollProgress() {
   if (reduce) return null
 
   return (
-    <motion.div
+    <div
       className="scroll-progress"
-      style={{ scaleX }}
+      style={{ transform: `scaleX(${scrollProgress})` }}
       aria-hidden
     />
   )
