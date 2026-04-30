@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import type { SkillProficiency } from '@/data/site'
-import { skillGroups } from '@/data/site'
+import type { SkillItem, SkillProficiency } from '@/data/site'
+import { allSkillItems } from '@/data/site'
 import { cn } from '@/lib/utils'
 
 function prefersReducedMotion(): boolean {
@@ -15,7 +15,7 @@ function SkillIcon({ name, icon, className }: { name: string; icon: string; clas
     return (
       <span
         className={cn(
-          'flex h-[1.35rem] w-[1.35rem] shrink-0 items-center justify-center rounded-full border border-primary/35 bg-primary/15 font-mono text-[7px] font-bold uppercase text-primary',
+          'flex h-[1.2rem] w-[1.2rem] shrink-0 items-center justify-center rounded-full border border-primary/35 bg-primary/15 font-mono text-[7px] font-bold uppercase text-primary',
           className,
         )}
         aria-hidden
@@ -29,7 +29,11 @@ function SkillIcon({ name, icon, className }: { name: string; icon: string; clas
     <img
       src={icon}
       alt=""
-      className={cn('h-[1.35rem] w-[1.35rem] shrink-0 object-contain', className)}
+      className={cn(
+        'h-[1.2rem] w-[1.2rem] shrink-0 object-contain transition-[transform,filter] duration-300',
+        'motion-safe:group-hover/pill:scale-105 motion-safe:group-hover/pill:brightness-110 motion-safe:group-hover/pill:saturate-110',
+        className,
+      )}
       loading="lazy"
       decoding="async"
       referrerPolicy="no-referrer"
@@ -38,35 +42,104 @@ function SkillIcon({ name, icon, className }: { name: string; icon: string; clas
   )
 }
 
-function ProficiencyDots({ level }: { level: SkillProficiency }) {
+const PROFICIENCY_SUMMARY: Record<SkillProficiency, string> = {
+  1: 'Occasional',
+  2: 'Regular in production',
+  3: 'Core - daily use',
+}
+
+function MarqueePill({ skill: s, allowFocus = true }: { skill: SkillItem; allowFocus?: boolean }) {
+  const label = `${s.name}. ${PROFICIENCY_SUMMARY[s.proficiency]}. ${s.productionHint}`
+  const tip = `${s.name} · ${PROFICIENCY_SUMMARY[s.proficiency]} · ${s.productionHint}`
+
   return (
-    <span className="inline-flex shrink-0 items-center gap-[3px]" aria-hidden>
-      {([0, 1, 2] as const).map((i) => (
-        <span
-          key={i}
-          className={cn(
-            'h-1 w-1 rounded-full',
-            i < level ? 'bg-primary/75' : 'bg-muted-foreground/25',
-          )}
-        />
-      ))}
-    </span>
+    <button
+      type="button"
+      data-cursor-hover
+      title={tip}
+      aria-label={label}
+      tabIndex={allowFocus ? 0 : -1}
+      className={cn(
+        'group/pill inline-flex shrink-0 items-center gap-2 rounded-full border border-border/60',
+        'bg-gradient-to-br from-white/[0.09] via-white/[0.03] to-transparent px-3 py-2',
+        'text-left text-[11px] font-medium tracking-tight text-foreground/[0.93]',
+        'shadow-[inset_0_1px_0_0_rgb(255_255_255_/_0.07)] backdrop-blur-md md:gap-2.5 md:px-3.5 md:py-2.5 md:text-[12px]',
+        'transition-[transform,box-shadow,border-color,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
+        'light:border-stone-200/70 light:from-white/85 light:via-white/55 light:shadow-sm',
+        'motion-safe:hover:-translate-y-px motion-safe:hover:border-primary/55 motion-safe:hover:shadow-[0_0_0_1px_hsl(var(--primary)_/_0.18),0_14px_36px_-18px_hsl(var(--primary)_/_0.42)]',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+      )}
+    >
+      <span
+        className={cn(
+          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
+          'bg-white/[0.07] ring-1 ring-white/[0.1]',
+          'transition-[background-color,box-shadow] duration-300',
+          'group-hover/pill:bg-white/[0.11] group-hover/pill:shadow-[0_0_16px_-4px_hsl(var(--primary)_/_0.32)] group-hover/pill:ring-primary/35',
+          'light:bg-stone-100/90 light:ring-stone-200/85',
+        )}
+      >
+        <SkillIcon name={s.name} icon={s.icon} />
+      </span>
+      <span className="whitespace-nowrap pr-0.5">{s.name}</span>
+    </button>
   )
 }
 
-function flatSkillIndex(groupIndex: number, itemIndex: number): number {
-  let n = 0
-  for (let i = 0; i < groupIndex; i++) n += skillGroups[i].items.length
-  return n + itemIndex
+function splitIntoRows(items: SkillItem[], rowCount: number): SkillItem[][] {
+  const rows: SkillItem[][] = Array.from({ length: rowCount }, () => [])
+  items.forEach((item, i) => {
+    rows[i % rowCount].push(item)
+  })
+  return rows
 }
 
-/** Single ghost opacity across themes (~5.5% of foreground) */
-const GHOST_CLASS =
-  'select-none font-display font-semibold leading-none tracking-[-0.055em] text-foreground/[0.055] light:text-stone-950/[0.055]'
+function MarqueeRow({
+  items,
+  reverse,
+  durationSec,
+}: {
+  items: SkillItem[]
+  reverse: boolean
+  durationSec: number
+}) {
+  if (items.length === 0) return null
+
+  return (
+    <div
+      className={cn(
+        'skills-marquee-row relative overflow-hidden py-1',
+        '[mask-image:linear-gradient(90deg,transparent_0%,black_12%,black_88%,transparent_100%)]',
+      )}
+    >
+      <div
+        className={cn('flex w-max', reverse ? 'skills-marquee-track-reverse' : 'skills-marquee-track')}
+        style={{ animationDuration: `${durationSec}s` }}
+      >
+        {[0, 1].map((dup) => (
+          <div
+            key={dup}
+            className="flex gap-3 md:gap-4"
+            {...(dup === 1 ? { 'aria-hidden': true } : {})}
+          >
+            {items.map((s, i) => (
+              <MarqueePill key={`${s.name}-${dup}-${i}`} skill={s} allowFocus={dup === 0} />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const MARQUEE_ROWS = 3
+const ROW_DURATIONS = [46, 58, 50]
 
 export function SkillsSection() {
   const section = useRef<HTMLElement>(null)
   const [revealed, setRevealed] = useState(() => prefersReducedMotion())
+  const reduceMotion = prefersReducedMotion()
+  const rows = splitIntoRows(allSkillItems, MARQUEE_ROWS)
 
   useEffect(() => {
     if (prefersReducedMotion()) {
@@ -93,8 +166,13 @@ export function SkillsSection() {
       id="skills"
       ref={section}
       data-skills-visible={revealed ? 'true' : 'false'}
+      aria-label="Technical capabilities - scrolling tool list; pause by hovering or focusing a control"
       className="relative scroll-mt-28 overflow-hidden px-5 py-20 md:px-10 md:py-28"
     >
+      <p className="sr-only">
+        Tools and technologies: {allSkillItems.map((s) => s.name).join(', ')}.
+      </p>
+
       <div
         className="pointer-events-none absolute -left-1/4 top-1/3 h-[min(70vw,520px)] w-[min(70vw,520px)] rounded-full bg-[radial-gradient(circle_at_center,hsl(var(--primary)_/_0.12),transparent_68%)] blur-3xl"
         aria-hidden
@@ -106,88 +184,88 @@ export function SkillsSection() {
 
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-2xl">
-          <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground/70">Capabilities</p>
-          <h2 className="mt-3 font-display text-[clamp(1.55rem,3.8vw,2.75rem)] font-semibold leading-[1.12] tracking-[-0.02em] md:leading-tight">
+          <p
+            className={cn(
+              'font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/[0.88]',
+              'transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+              revealed ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+            )}
+          >
+            Capabilities
+          </p>
+          <h2
+            style={{ transitionDelay: revealed ? '100ms' : '0ms' }}
+            className={cn(
+              'mt-3 font-display text-[clamp(1.55rem,3.8vw,2.75rem)] font-semibold leading-[1.12] tracking-[-0.02em] md:leading-tight',
+              'transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+              revealed ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+            )}
+          >
             Tools I trust in production.
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
-            Languages, ML, infrastructure, and release tooling I use day to day.
+          <p
+            style={{ transitionDelay: revealed ? '190ms' : '0ms' }}
+            className={cn(
+              'mt-3 text-sm leading-relaxed text-muted-foreground md:text-[15px]',
+              'transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+              revealed ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+            )}
+          >
+            Hover a row to pause - each pill has a short note on how I use it.
           </p>
         </div>
 
-        <div className="mt-10 space-y-10 md:mt-12 md:space-y-12">
-          {skillGroups.map((group, gi) => (
-            <div key={group.title} className="relative border-l border-primary/30 pl-5 md:pl-7">
-              <div
-                className="absolute left-0 top-0 h-7 w-px bg-gradient-to-b from-primary/85 to-transparent md:h-9"
-                aria-hidden
-              />
-
-              <p className="relative z-20 font-mono text-[10px] uppercase tracking-[0.26em] text-foreground/75">
-                {group.title}
-              </p>
-
-              {/* Ghost locked to chip column: same width as grid, vertically centered with chip row only */}
-              <div className="relative z-10 mt-3 overflow-hidden md:mt-4">
-                <div className="pointer-events-none absolute inset-0 z-0 flex items-center" aria-hidden>
-                  <span
-                    className={cn(
-                      GHOST_CLASS,
-                      'block w-full max-w-full truncate text-left',
-                      'text-[clamp(2.4rem,10.5vw,5.25rem)] md:text-[clamp(2.75rem,9vw,5rem)]',
-                    )}
-                  >
-                    {group.ghostWord}
-                  </span>
-                </div>
-
-                <ul
-                  className="relative z-10 grid list-none grid-cols-2 gap-2 py-0.5 sm:grid-cols-3 md:grid-cols-3 md:gap-2.5 lg:grid-cols-6"
-                  role="list"
-                >
-                  {group.items.map((s, ii) => {
-                    const sk = flatSkillIndex(gi, ii)
-                    return (
-                      <li key={s.name} className="min-w-0">
-                        <span
-                          data-cursor-hover
-                          title={s.productionHint}
-                          aria-label={`${s.name}. ${s.productionHint}`}
-                          style={{
-                            transitionDelay: revealed ? `${Math.min(sk, 28) * 32}ms` : '0ms',
-                          }}
-                          className={cn(
-                            'group/chip flex h-full min-h-[2.85rem] w-full min-w-0 cursor-default items-center gap-2.5 rounded-full border border-border/55 bg-gradient-to-br from-white/[0.07] via-white/[0.02] to-transparent px-3 py-2 text-left text-[11px] font-medium tracking-tight text-foreground/90 shadow-[inset_0_1px_0_0_rgb(255_255_255_/_0.06)] backdrop-blur-md md:min-h-[3rem] md:gap-3 md:px-3.5 md:py-2.5 md:text-[12px]',
-                            'transition-[opacity,transform,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                            'light:border-stone-200/70 light:from-white/80 light:via-white/50 light:shadow-sm',
-                            'motion-safe:hover:-translate-y-0.5 motion-safe:hover:border-primary/50 motion-safe:hover:shadow-[0_0_0_1px_hsl(var(--primary)_/_0.14),0_18px_44px_-22px_hsl(var(--primary)_/_0.42)]',
-                            revealed ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
-                          )}
-                        >
-                          <span
-                            className={cn(
-                              'flex h-9 w-9 shrink-0 items-center justify-center rounded-full',
-                              'bg-white/[0.07] ring-1 ring-white/[0.1]',
-                              'transition-[background-color,box-shadow] duration-300',
-                              'group-hover/chip:bg-white/[0.11] group-hover/chip:shadow-[0_0_20px_-4px_hsl(var(--primary)_/_0.35)] group-hover/chip:ring-primary/35',
-                              'light:bg-stone-100/90 light:ring-stone-200/85',
-                            )}
-                          >
-                            <SkillIcon name={s.name} icon={s.icon} />
-                          </span>
-                          <span className="flex min-w-0 flex-1 items-center gap-1.5 leading-tight">
-                            <span className="min-w-0 truncate">{s.name}</span>
-                            <ProficiencyDots level={s.proficiency} />
-                          </span>
-                        </span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+        <div
+          className={cn(
+            'mt-12 flex flex-col gap-4 md:mt-14 md:gap-5',
+            'transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            revealed ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
+          )}
+          style={{ transitionDelay: revealed ? '260ms' : '0ms' }}
+        >
+          {reduceMotion ? (
+            <div className="flex flex-wrap justify-center gap-2 md:gap-2.5" role="list">
+              {allSkillItems.map((s) => (
+                <span key={s.name} role="listitem" className="contents">
+                  <MarqueePill skill={s} />
+                </span>
+              ))}
             </div>
-          ))}
+          ) : (
+            <>
+              {rows.map((rowItems, ri) => (
+                <MarqueeRow
+                  key={ri}
+                  items={rowItems}
+                  reverse={ri % 2 === 1}
+                  durationSec={ROW_DURATIONS[ri] ?? 50}
+                />
+              ))}
+            </>
+          )}
         </div>
+
+        <p
+          style={{ transitionDelay: revealed ? '480ms' : '0ms' }}
+          className={cn(
+            'mt-12 text-center md:mt-14',
+            'transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            revealed ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0',
+          )}
+        >
+          <a
+            href="#work"
+            className="group/cta inline-flex items-center gap-2 border-b border-primary/45 pb-0.5 font-mono text-[10px] uppercase tracking-[0.28em] text-foreground/88 transition-[color,border-color,transform] hover:border-primary hover:text-primary"
+          >
+            View projects using these tools
+            <span
+              className="inline-block transition-transform motion-safe:group-hover/cta:translate-x-1"
+              aria-hidden
+            >
+              →
+            </span>
+          </a>
+        </p>
       </div>
     </section>
   )

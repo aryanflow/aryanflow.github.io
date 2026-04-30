@@ -5,7 +5,7 @@ type Props = {
   imgClassName?: string
 }
 
-/** Monogram mark — inline SVG with `currentColor` (no img + invert halos). */
+/** Monogram mark - inline SVG with `currentColor` (no img + invert halos). */
 export function BrandLogo({ className, imgClassName }: Props) {
   return (
     <span

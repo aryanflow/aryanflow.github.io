@@ -220,8 +220,21 @@ html.light ::-webkit-scrollbar-thumb:hover {
 .skills-marquee-track {
   animation: skills-marquee 48s linear infinite;
 }
+
+.skills-marquee-track-reverse {
+  animation: skills-marquee-reverse 52s linear infinite;
+}
+
+.skills-marquee-row:hover .skills-marquee-track,
+.skills-marquee-row:hover .skills-marquee-track-reverse,
+.skills-marquee-row:focus-within .skills-marquee-track,
+.skills-marquee-row:focus-within .skills-marquee-track-reverse {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .skills-marquee-track {
+  .skills-marquee-track,
+  .skills-marquee-track-reverse {
     animation: none;
   }
 }
@@ -231,5 +244,13 @@ html.light ::-webkit-scrollbar-thumb:hover {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+@keyframes skills-marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
   }
 }

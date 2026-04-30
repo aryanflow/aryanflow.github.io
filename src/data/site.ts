@@ -333,3 +333,6 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
 ]
+
+/** Flattened skill list for marquee and other aggregate UI */
+export const allSkillItems: SkillItem[] = skillGroups.flatMap((g) => g.items)
