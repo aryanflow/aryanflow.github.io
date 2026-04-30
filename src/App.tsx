@@ -1,7 +1,6 @@
 import { SmoothScrollProvider } from '@/providers/SmoothScrollProvider'
 import { IntroSequence } from '@/components/IntroSequence'
 import { ScrollProgress } from '@/components/ScrollProgress'
-import { CustomCursor } from '@/components/CustomCursor'
 import { SiteNav } from '@/components/SiteNav'
 import { HeroSection } from '@/components/HeroSection'
 import { AboutSection } from '@/components/AboutSection'
@@ -14,7 +13,6 @@ export default function App() {
   return (
     <SmoothScrollProvider>
       <IntroSequence />
-      <CustomCursor />
       <div className="relative min-h-screen">
         <ScrollProgress />
         <div className="noise" aria-hidden />

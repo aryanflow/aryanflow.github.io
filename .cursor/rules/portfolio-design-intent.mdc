@@ -22,7 +22,7 @@ Your task is to push this codebase toward a world-class, award-worthy portfolio 
 - **Physics-leaning motion** where it fits: magnetic targets, elastic ease, scroll-linked depth (e.g. parallax layers).
 - **Smooth scroll** with parallax-style layering - this repo uses **Lenis** wired to **GSAP** (`SmoothScrollProvider`).
 - **3D / WebGL** where it elevates the story - **Three.js** is already used for the hero field (`HeroCanvas`); extend thoughtfully rather than piling effects everywhere.
-- **Custom cursor** that responds to hover - `CustomCursor` + `data-cursor-hover` patterns should stay cohesive.
+- **Cursor:** native OS cursor on desktop; use `data-cursor-hover` on large hit targets and clear hover or focus styles - no fake cursor that hides the system pointer.
 - **Page and section reveals** that feel cinematic - GSAP timelines, stagger, and scroll triggers over random CSS bloat.
 - **Micro-interactions** on every interactive control - hover, focus, and active states must feel considered.
 

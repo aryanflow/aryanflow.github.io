@@ -171,42 +171,21 @@ html.light .scroll-progress {
   opacity: 0.95;
 }
 
-@media (pointer: fine) {
-  html.custom-cursor-on,
-  html.custom-cursor-on * {
-    cursor: none !important;
-  }
-}
-
-.cursor-pointer-svg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  width: 24px;
-  height: 24px;
-  pointer-events: none;
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.45));
-}
-html.light .cursor-pointer-svg {
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.12));
-}
-.cursor-pointer-svg__icon {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.14s ease;
-}
-.cursor-pointer-svg.cursor-pointer-svg--over:not(.cursor-pointer-svg--press) .cursor-pointer-svg__icon {
-  transform: scale(1.06);
-}
-.cursor-pointer-svg.cursor-pointer-svg--press .cursor-pointer-svg__icon {
-  transform: scale(0.92);
-}
-
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .cursor-pointer-svg {
-    display: none !important;
+@layer base {
+  @media (pointer: fine) {
+    a[href],
+    button:not(:disabled),
+    [role='button']:not([aria-disabled='true']),
+    [data-cursor-hover],
+    label[for],
+    select,
+    summary {
+      cursor: pointer;
+    }
+    input:not([type='hidden']):not([disabled]),
+    textarea:not([disabled]) {
+      cursor: text;
+    }
   }
 }
 

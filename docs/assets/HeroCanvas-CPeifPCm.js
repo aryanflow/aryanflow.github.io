@@ -1,4 +1,4 @@
-import{r as pa,j as cl}from"./index-BkwHogBH.js";/**
+import{r as pa,j as cl}from"./index-DNqoB_9a.js";/**
  * @license
  * Copyright 2010-2026 Three.js Authors
  * SPDX-License-Identifier: MIT
