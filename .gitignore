@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output (Vite default; keep committing docs/ if you deploy from there)
+dist/
+
+# Local / secrets
+.env
+.env.*.local
+
+# OS / editor
+.DS_Store
+*.log
