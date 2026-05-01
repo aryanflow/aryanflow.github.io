@@ -7,7 +7,7 @@ import { Magnetic } from '@/components/Magnetic'
 import { cn } from '@/lib/utils'
 
 const inputClass =
-  'w-full rounded-2xl border border-border/80 bg-card/40 px-4 py-3.5 text-[15px] text-foreground placeholder:text-muted-foreground/50 backdrop-blur-sm transition focus:outline-none focus:ring-2 focus:ring-primary/35 focus:ring-offset-2 focus:ring-offset-background light:border-stone-300/80 light:bg-white/90 light:ring-offset-amber-50/90'
+  'box-border min-w-0 w-full rounded-2xl border border-border/80 bg-card/40 px-4 py-3.5 text-[15px] text-foreground placeholder:text-muted-foreground/50 backdrop-blur-sm transition focus:outline-none focus:ring-2 focus:ring-primary/35 focus:ring-offset-2 focus:ring-offset-background light:border-stone-300/80 light:bg-white/90 light:ring-offset-amber-50/90'
 
 export function ContactSection() {
   const root = useRef<HTMLElement>(null)
@@ -55,8 +55,8 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" ref={root} className="scroll-mt-28 px-5 py-24 md:px-10 md:py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="contact" ref={root} className="scroll-mt-28 w-full min-w-0 px-5 py-24 md:px-10 md:py-32">
+      <div className="mx-auto box-border w-full min-w-0 max-w-5xl">
         <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Contact</p>
         <h2 className="mt-4 max-w-xl font-display text-[clamp(1.75rem,4vw,2.5rem)] font-semibold leading-tight tracking-[-0.02em]">
           Say hello.
@@ -65,17 +65,20 @@ export function ContactSection() {
           Short context, a concrete ask, and what “done” looks like. I read everything.
         </p>
 
-        <div ref={panel} className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div className="flex flex-col justify-between gap-8 rounded-3xl border border-border/60 bg-card/25 p-8 backdrop-blur-md md:p-10">
-            <div>
+        <div
+          ref={panel}
+          className="mt-12 grid w-full min-w-0 max-w-full gap-10 box-border lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16"
+        >
+          <div className="box-border flex min-w-0 w-full max-w-full flex-col justify-between gap-8 rounded-3xl border border-border/60 bg-card/25 p-8 backdrop-blur-md md:p-10">
+            <div className="min-w-0">
               <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">Direct</p>
               <a
                 href={`mailto:${site.email}`}
-                className="mt-4 inline-flex items-center gap-2 font-display text-xl font-medium tracking-tight transition hover:text-primary md:text-2xl"
+                className="mt-4 flex min-w-0 max-w-full flex-wrap items-center gap-2 font-display text-xl font-medium tracking-tight transition hover:text-primary md:text-2xl"
                 data-cursor-hover
               >
                 <Mail className="h-5 w-5 shrink-0 opacity-70" />
-                {site.email}
+                <span className="min-w-0 break-words">{site.email}</span>
               </a>
             </div>
             <Magnetic strength={0.2}>
@@ -91,13 +94,16 @@ export function ContactSection() {
             </Magnetic>
           </div>
 
-          <div className="rounded-3xl border border-border/60 bg-card/20 p-6 backdrop-blur-md md:p-8" data-lenis-prevent>
+          <div
+            className="box-border min-w-0 w-full max-w-full rounded-3xl border border-border/60 bg-card/20 p-6 backdrop-blur-md md:p-8"
+            data-lenis-prevent
+          >
             {done ? (
               <p className="rounded-2xl border border-emerald-500/35 bg-emerald-500/10 px-5 py-6 text-[15px] leading-relaxed text-emerald-100 light:border-emerald-800/30 light:bg-emerald-800/10 light:text-emerald-950">
                 Thanks - your note is in my inbox.
               </p>
             ) : (
-              <form className="space-y-5" onSubmit={onSubmit}>
+              <form className="min-w-0 space-y-5" onSubmit={onSubmit}>
                 <div className="space-y-2">
                   <label className="text-xs font-medium text-muted-foreground" htmlFor="contact_name">
                     Name
