@@ -134,21 +134,24 @@ export function HeroSection() {
         </div>
       </div>
 
-      <a
-        ref={scrollRef}
-        href="#about"
-        className={cn(
-          'absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground',
-          'motion-safe:animate-float',
-        )}
-        data-cursor-hover
-        aria-label="Scroll to about"
-      >
-        <span className="font-mono text-[9px] uppercase tracking-[0.35em]">Scroll</span>
-        <span className="flex h-9 w-5 items-start justify-center rounded-full border border-border pt-1.5">
-          <ArrowDown className="h-3 w-3 opacity-70" />
-        </span>
-      </a>
+      {/* Wrapper keeps horizontal centering: GSAP sets transform on the link for y/opacity and would override Tailwind -translate-x-1/2 if applied on the same node. */}
+      <div className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
+        <a
+          ref={scrollRef}
+          href="#about"
+          className={cn(
+            'pointer-events-auto flex flex-col items-center gap-2 text-muted-foreground',
+            'motion-safe:animate-float',
+          )}
+          data-cursor-hover
+          aria-label="Scroll to about"
+        >
+          <span className="font-mono text-[9px] uppercase tracking-[0.35em]">Scroll</span>
+          <span className="flex h-9 w-5 items-start justify-center rounded-full border border-border pt-1.5">
+            <ArrowDown className="h-3 w-3 opacity-70" />
+          </span>
+        </a>
+      </div>
     </section>
   )
 }
