@@ -37,6 +37,9 @@ export default {
         display: ['Fraunces', 'Georgia', 'serif'],
         sans: ['Outfit', 'system-ui', 'sans-serif'],
         mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+        inter: ['Inter', 'system-ui', 'sans-serif'],
+        jetbrains: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        playfair: ['"Playfair Display"', 'Georgia', 'serif'],
       },
       backgroundSize: {
         '300%': '300%',

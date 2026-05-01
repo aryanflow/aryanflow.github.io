@@ -1,0 +1,1 @@
+import{j as e,s as l}from"./index-DGflmKUA.js";function r(){const s=encodeURI(l.resume);return e.jsx("div",{className:"flex h-full min-h-[400px] flex-col bg-[#0c0c0e]",children:e.jsx("iframe",{title:"Résumé PDF",src:s,className:"h-full min-h-[400px] w-full flex-1 border-0 bg-zinc-900"})})}export{r as ResumeWindow};

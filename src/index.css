@@ -246,3 +246,26 @@ html.light ::-webkit-scrollbar-thumb:hover {
     transform: translateX(0);
   }
 }
+
+.ak-cursor-none *,
+.ak-cursor-none {
+  cursor: none !important;
+}
+
+.ak-term-cursor {
+  animation: ak-term-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ak-term-cursor {
+    animation: none;
+    opacity: 0.9;
+  }
+}
+
+@keyframes ak-term-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
