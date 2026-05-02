@@ -2,7 +2,7 @@ export const site = {
   name: 'Aryan Kashyap',
   title: 'AI-first software engineer',
   tagline: 'I build systems that stay calm at scale.',
-  role: 'Software Developer L1 @ Aptos Retail',
+  role: 'Software Developer L2 @ Aptos Retail',
   email: 'work.aryankashyap@gmail.com',
   github: 'https://github.com/aryankashyap7',
   linkedin: 'https://www.linkedin.com/in/aryankashyap/',
@@ -12,7 +12,7 @@ export const site = {
     lede: 'Software Developer & ML Engineer',
     headline: 'Calm systems, sharp edges, zero theatre.',
     paragraphs: [
-      `I am a Software Developer L1 at Aptos Retail, rearchitecting high traffic order and product APIs, modernising legacy services, and improving cost and performance across a large AWS microservices estate. Before that, I was a Full Stack Developer at EasyInsights on data heavy SaaS, and a QA Automation Engineer at Schlumberger building test automation you can lean on.`,
+      `I am a Software Developer L2 at Aptos Retail, rearchitecting high traffic order and product APIs, modernising legacy services, and improving cost and performance across a large AWS microservices estate. Before that, I was a Full Stack Developer at EasyInsights on data heavy SaaS, and a QA Automation Engineer at Schlumberger building test automation you can lean on.`,
       `My work lives where ML, backend engineering, and cloud meet: from ML driven products to API design, observability, and regression frameworks that keep change safe. I studied Computer Science with a specialisation in AIML at VIT Bhopal (CGPA 8.56), with a focus on applied AI.`,
     ],
   },
@@ -21,7 +21,7 @@ export const site = {
 export const experience = [
   {
     company: 'Aptos Retail',
-    role: 'Software Developer L1',
+    role: 'Software Developer L2',
     place: 'Bengaluru',
     period: 'Nov 2024 to present',
     points: [
